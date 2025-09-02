@@ -1,0 +1,69 @@
+eureka:
+    client:
+        fetch-registry: true
+        register-with-eureka: true
+        service-url:
+            defaultZone: http://localhost:8050/eureka/
+    instance:
+        prefer-ip-address: true
+server:
+    port: 8085
+spring:
+  application:
+        name: GATEWAY-SERVER
+  cloud:
+    gateway:
+     websocket:
+      enabled: true
+     globalcors:
+        cors-configurations:
+          '[/**]':  
+            allowedOrigins:
+              - "http://localhost:5173"
+              - "http://192.168.1.143:5173"
+              - "http://192.168.1.143:4173"
+              - "http://192.168.1.142:5173"
+              - "http://192.168.1.127:5173"
+              - "http://192.168.1.138:5173"
+              - "http://192.168.1.116:5173"
+              - "http://192.168.1.171:5173"
+              - "http://192.168.1.158:5173"
+              - "https://tanfedit.github.io/"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - OPTIONS
+            allowedHeaders: "*"
+            exposedHeaders: "Authorization"
+            allowCredentials: true
+     routes:
+      - id: USER-SERVICE
+        uri: http://localhost:8081
+        predicates:
+          - Path=/auth/**,/api/user/**
+
+      - id: websocket-route
+        uri: ws://localhost:8081
+        predicates:
+          - Path=/ws/**
+        filters:
+          - name: PreserveHostHeader
+
+      - id: BASICINFO-SERVICE
+        uri: http://localhost:8082
+        predicates:
+          - Path=/api/accountsmaster/**,/api/basic-info/**,/api/inventrymaster/**,/api/data/**
+
+      - id: ACCOUNTS-SERVICE
+        uri: http://localhost:8083
+        predicates:
+          - Path=/api/accounts/**,/api/billsaccounts/**
+
+      - id: INVENTRY-SERVICE
+        uri: http://localhost:8084
+        predicates:
+          - Path=/api/inventry/**,/api/ic/**,/api/sob/**
+
+
+
