@@ -43,7 +43,7 @@ spring:
           - name: PreserveHostHeader
 
       - id: BASICINFO-SERVICE
-        uri: http://localhost:8082
+        uri: https://${SHARED_API}
         predicates:
           - Path=/api/accountsmaster/**,/api/basic-info/**,/api/inventrymaster/**,/api/data/**
 
