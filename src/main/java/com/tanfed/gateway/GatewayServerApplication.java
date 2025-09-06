@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GatewayServerApplication {
 	
-	@GetMapping("/test")
+	@GetMapping("/")
 	public String test() throws Exception {
 		return "Service Deployed Successfully!";
 	}
