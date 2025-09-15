@@ -20,6 +20,8 @@ spring:
           '[/**]':  
             allowedOrigins:
               - "${FRONTEND_URL}"
+              - "${FRONTEND_URL_DOMAIN}"
+              - "${FRONTEND_URL_SUBDOMAIN}"
               - "${RENDER_FRONTEND_URL}"
             allowedMethods:
               - GET
