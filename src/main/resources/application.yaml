@@ -3,7 +3,7 @@ eureka:
         fetch-registry: true
         register-with-eureka: true
         service-url:
-            defaultZone: https://${EUREKA_HOST}/eureka/
+            defaultZone: http://localhost:8050/eureka/
     instance:
         prefer-ip-address: true
 server:
@@ -23,6 +23,7 @@ spring:
               - "${FRONTEND_URL_DOMAIN}"
               - "${FRONTEND_URL_SUBDOMAIN}"
               - "${RENDER_FRONTEND_URL}"
+              - "http://localhost:5173/"
             allowedMethods:
               - GET
               - POST
@@ -33,29 +34,29 @@ spring:
             allowCredentials: true
      routes:
       - id: USER-SERVICE
-        uri: https://${USER_API}
+        uri: http://${USER_API:localhost:8081}
         predicates:
           - Path=/auth/**,/api/user/**
 
       - id: websocket-route
-        uri: ws://${USER_API}
+        uri: ws://${USER_API:localhost:8081}
         predicates:
           - Path=/ws/**
         filters:
           - name: PreserveHostHeader
 
       - id: BASICINFO-SERVICE
-        uri: https://${SHARED_API}
+        uri: http://${SHARED_API:localhost:8082}
         predicates:
           - Path=/api/accountsmaster/**,/api/basic-info/**,/api/inventrymaster/**,/api/data/**
 
       - id: ACCOUNTS-SERVICE
-        uri: https://${ACCOUNTS_API}
+        uri: http://${ACCOUNTS_API:localhost:8083}
         predicates:
           - Path=/api/accounts/**,/api/billsaccounts/**
 
       - id: INVENTRY-SERVICE
-        uri: https://${INVENTORY_API}
+        uri: http://${INVENTORY_API:localhost:8084}
         predicates:
           - Path=/api/inventry/**,/api/ic/**,/api/sob/**
 
