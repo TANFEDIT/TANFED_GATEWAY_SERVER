@@ -3,7 +3,7 @@ eureka:
         fetch-registry: true
         register-with-eureka: true
         service-url:
-            defaultZone: http://localhost:8050/eureka/
+            defaultZone: http://${EUREKA_API:localhost:8050}/eureka/
     instance:
         prefer-ip-address: true
 server:
@@ -22,7 +22,6 @@ spring:
               - "${FRONTEND_URL}"
               - "${FRONTEND_URL_DOMAIN}"
               - "${FRONTEND_URL_SUBDOMAIN}"
-              - "${RENDER_FRONTEND_URL}"
               - "http://localhost:5173/"
               - "http://192.168.1.116:5173/"
               - "http://192.168.1.143:5173/"
