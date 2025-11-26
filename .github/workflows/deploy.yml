@@ -1,0 +1,31 @@
+name: Build & Deploy Spring Boot to VM
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build project
+        run: mvn -B clean package -DskipTests
+
+      - name: Copy JAR file
+        run: |
+          cp target/*.jar /opt/myapp/app.jar
+
+      - name: Restart Spring Boot Service
+        run: |
+          sudo systemctl restart myapp
+          sudo systemctl status myapp --no-pager
