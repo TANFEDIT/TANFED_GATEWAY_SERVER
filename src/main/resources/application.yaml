@@ -23,6 +23,7 @@ spring:
               - "${FRONTEND_URL}"
               - "${FRONTEND_URL_DOMAIN}"
               - "${FRONTEND_URL_SUBDOMAIN}"
+              - "http://164.164.197.50/"
               - "http://localhost:5173/"
               - "http://192.168.1.116:5173/"
               - "http://192.168.1.143:5173/"
