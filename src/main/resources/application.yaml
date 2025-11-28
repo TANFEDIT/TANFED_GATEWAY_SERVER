@@ -39,6 +39,7 @@ spring:
             allowedHeaders: "*"
             exposedHeaders: "Authorization"
             allowCredentials: true
+        add-to-simple-url-handler-mapping: true
      routes:
       - id: USER-SERVICE
         uri: http://${USER_API:localhost:8081}
